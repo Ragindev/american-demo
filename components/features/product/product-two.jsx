@@ -10,7 +10,7 @@ import ALink from '@components/features/custom-link';
 //import { wishlistActions } from '@store/wishlist';
 
 import { toDecimal } from '@utils';
-import { hasFluidValue } from '@react-spring/shared';
+//import { hasFluidValue } from '@react-spring/shared';
 
 function ProductTwo( props ) {
     const { product, adClass = 'text-center', toggleWishlist, wishlist, addToCart, openQuickview } = props
