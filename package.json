@@ -58,7 +58,8 @@
     "react-helmet": "^5.2.1",
     "react-image-magnifiers": "^1.2.1",
     "react-image-lightbox": "^5.1.1",
-    "react-countdown": "^2.2.1"
+    "react-countdown": "^2.2.1",
+    "react-slide-toggle": "^0.3.5"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^1.21.5",

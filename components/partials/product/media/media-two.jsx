@@ -27,7 +27,7 @@ return (
     <>
         <div className="product-gallery row cols-sm-2">
             {
-                lgImages.map( ( image, index ) => <figure className="product-image mb-4" key={ 'image' + index }>
+                lgImages.map( ( image, index ) =>  <figure className="product-image mb-4" key={ 'image' + index }>
                         <Magnifier
                             imageSrc={image.url}
                             imageAlt="magnifier"

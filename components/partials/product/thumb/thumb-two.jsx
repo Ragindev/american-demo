@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import OwlCarousel from '@components/features/owl-carousel';
 
-import { mainSlider15 } from '@utils/data/carousel';
+//import { mainSlider15 } from '@utils/data/carousel';
 
 function ThumbTwo(props) {
     const { product, index = 0 } = props;

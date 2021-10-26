@@ -8,15 +8,10 @@ import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
-import MediaOne from '@components/partials/product/media/media-one';
 import DetailOne from '@components/partials/product/detail/detail-one';
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
-//import Helmet from 'react-helmet';
-//import imagesLoaded from 'imagesloaded';
-//import OwlCarousel from '@components/features/owl-carousel';
-// import DescOne from '@components/partials/product/desc/desc-one';
-// import RelatedProducts from '@components/partials/product/related-products';
+import MediaTwo from '@components/partials/product/media/media-two';
+
 
 
 
@@ -87,15 +82,16 @@ export default function Slug({
   return router.isFallback ? (
     <h1>Loading...</h1>
   ) : (
-    <div>
-      <div className="col-md-6 sticky-sidebar-wrapper">
-        
-    {/* <MediaOne product={ product } /> */}
+    <div className="container vertical">
+      <div className= "product-single row mb-2">
+      
+    <div className="col-md-6">
+     <MediaTwo product={ product } />
     </div>
     <div className="col-md-6">
     <DetailOne product={ product } />
     </div>
-
+    </div>
     <ProductView product={product} relatedProducts={relatedProducts} />
     </div>
   )

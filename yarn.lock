@@ -6059,6 +6059,11 @@ react-side-effect@^1.1.0:
   dependencies:
     shallowequal "^1.0.1"
 
+react-slide-toggle@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/react-slide-toggle/-/react-slide-toggle-0.3.5.tgz#7fd3a6847ca10eb986af29d54eb02a870202be82"
+  integrity sha512-dV2PkLGiE7m66Ohk36jLqaaneUYc0ZpQe/ZmYEU3+7TVXfZwddimFyjeDfVzPhlqDcpK1yfKJ8NN7aIyR9bOTA==
+
 react-tabs@^3.1.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/react-tabs/-/react-tabs-3.2.2.tgz#07bdc3cdb17bdffedd02627f32a93cd4b3d6e4d0"

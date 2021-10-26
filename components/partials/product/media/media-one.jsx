@@ -83,17 +83,16 @@ export default function MediaOne( props ) {
                     }
                 </div>
 
-                <OwlCarousel adClass="product-single-carousel owl-theme owl-nav-inner"
-                    options={ mainSlider3 }
+               
+                    <div options={ mainSlider3 }
                     onChangeIndex={ setIndexHandler }
                     onChangeRef={ changeRefHandler }
-                    events={ events }
-                >
+                    events={ events }>
                     {
                         lgImages.map( ( image, index ) =>
                             <div key={ image + '-' + index }>
                                 <Magnifier
-                                    imageSrc={  image.url }
+                                    imageSrc={image.url }
                                     imageAlt="magnifier"
                                     largeImageSrc={ image.url }
                                     dragToMove={ false }
@@ -103,11 +102,12 @@ export default function MediaOne( props ) {
                                 />
                             </div>
                         ) }
-                </OwlCarousel>
+                        </div>
+                
 
                 <ALink href="#" className="product-image-full" onClick={ openLightBox }><i className="d-icon-zoom"></i></ALink>
 
-                <ThumbOne product={ product } index={ index } onChangeIndex={ setIndexHandler } />
+               <ThumbOne product={ product } index={ index } onChangeIndex={ setIndexHandler } />
                 <ThumbTwo product={ product } index={ index } onChangeIndex={ setIndexHandler } />
             </div>
 

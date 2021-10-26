@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-//mport Collapse from 'react-bootstrap/collapse';
-
+import { Button, Text, Rating, Collapse, useUI } from '@components/ui'
 import ALink from '@components/features/custom-link';
 import Countdown from '@components/features/countdown';
 import Quantity from '@components/features/quantity';
@@ -13,6 +12,7 @@ import ProductNav from '@components/partials/product/product-nav';
 // import { cartActions } from '@store/cart';
 
 import { toDecimal } from '@utils';
+import ProductSidebar from '@components/product/ProductSidebar';
 
 function DetailOne( props ) {
     let router = useRouter();
@@ -137,6 +137,19 @@ function DetailOne( props ) {
         setQauntity( qty );
     }
 
+    const addToCart = async () => {
+        setLoading(true)
+        try {
+          await addItem({
+            productId: String(product.id),
+            variantId: String(variant ? variant.id : product.variants[0].id),
+          })
+          openSidebar()
+          setLoading(false)
+        } catch (err) {
+          setLoading(false)
+        }
+      }
     return (
         <div className={ "product-details " + adClass }>
             {
@@ -152,12 +165,15 @@ function DetailOne( props ) {
                     </div> : ''
             }
 
-            {/* <h2 className="product-name">{ product.name }</h2> */}
+            <h2 className="product-name">{ product.name }</h2>
 
             <div className='product-meta'>
                 SKU: <span className='product-sku'>{ product.sku }</span>
+         
+               
                 {/* CATEGORIES: <span className='product-brand'>
                     {
+                       
                         product.categories.map( ( item, index ) =>
                             <React.Fragment key={ item.name + '-' + index }>
                                 <ALink href={ { pathname: '/shop', query: { category: item.slug } } }>
@@ -189,11 +205,14 @@ function DetailOne( props ) {
                 product.price[ 0 ] !== product.price[ 1 ] && product.variants.length === 0 ?
                     <Countdown type={ 2 } /> : ''
             }
-
+       <Text
+        className="pb-4 break-words w-full max-w-xl"
+        html={product.descriptionHtml || product.description}
+      />
             <div className="ratings-container">
                 <div className="ratings-full">
-                    {/* <span className="ratings" style={ { width: 20 * product.ratings + '%' } }></span>
-                    <span className="tooltiptext tooltip-top">{ toDecimal( product.ratings ) }</span> */}
+                    <span className="ratings" style={ { width: 20 * product.ratings + '%' } }></span>
+                    <span className="tooltiptext tooltip-top">{ ( product.ratings ) }</span>
                 </div>
 
                 <ALink href="#" className="rating-reviews">( { product.reviews } reviews )</ALink>
@@ -239,11 +258,11 @@ function DetailOne( props ) {
                                             </select>
                                         </div>
 
-                                        {/* <Collapse in={ 'null' !== curColor || 'null' !== curSize }>
+                                        <Collapse in={ 'null' !== curColor || 'null' !== curSize }>
                                             <div className="card-wrapper overflow-hidden reset-value-button w-100 mb-0">
                                                 <ALink href='#' className='product-variation-clean' onClick={ resetValueHandler }>Clean All</ALink>
                                             </div>
-                                        </Collapse> */}
+                                        </Collapse>
                                     </div>
                                 </div> : ""
                         }
@@ -342,8 +361,26 @@ function DetailOne( props ) {
                         <label className="d-none">QTY:</label>
                         <div className="product-form-group">
                             <Quantity max={ product.stock } product={ product } onChangeQty={ changeQty } />
-                            <button className={ `btn-product btn-cart text-normal ls-normal font-weight-semi-bold ${ cartActive ? '' : 'disabled' }` } onClick={ addToCartHandler }><i className='d-icon-bag'></i>Add to Cart</button>
+                             {process.env.COMMERCE_CART_ENABLED && (
+                                 <button className={ `btn-product btn-cart text-normal ls-normal font-weight-semi-bold ${ cartActive ? '' : 'disabled' }` } onClick={ addToCartHandler }><i className='d-icon-bag'></i>Add to Cart</button>
+                          )}
                         </div>
+                         {/* <div>
+        {process.env.COMMERCE_CART_ENABLED && (
+          <Button
+            aria-label="Add to Cart"
+            type="button"
+            className={s.button}
+            onClick={addToCart}
+            loading={loading}
+            disabled={variant?.availableForSale === false}
+          >
+            {variant?.availableForSale === false
+              ? 'Not Available'
+              : 'Add To Cart'}
+          </Button>
+        )}
+      </div> */}
                     </div>
             }
 
@@ -354,6 +391,7 @@ function DetailOne( props ) {
                     <ALink href="#" className="social-link social-facebook fab fa-facebook-f"></ALink>
                     <ALink href="#" className="social-link social-twitter fab fa-twitter"></ALink>
                     <ALink href="#" className="social-link social-pinterest fab fa-pinterest-p"></ALink>
+                    
                 {/* </div> <span className="divider d-lg-show"></span> <a href="#" className={ `btn-product btn-wishlist` } title={ isWishlisted ? 'Browse wishlist' : 'Add to wishlist' } onClick={ wishlistHandler }>
                     <i className={ isWishlisted ? "d-icon-heart-full" : "d-icon-heart" }></i> {
                         isWishlisted ? 'Browse wishlist' : 'Add to Wishlist'
@@ -364,7 +402,7 @@ function DetailOne( props ) {
         </div>
     )
 }
-
+<ProductSidebar></ProductSidebar>
 function mapStateToProps( state ) {
     return {
     //  wishlist: state.wishlist ? state.wishlist : []
@@ -372,3 +410,4 @@ function mapStateToProps( state ) {
 }
 
 export default DetailOne ;
+
