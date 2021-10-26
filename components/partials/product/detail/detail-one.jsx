@@ -205,18 +205,22 @@ function DetailOne( props ) {
                 product.price[ 0 ] !== product.price[ 1 ] && product.variants.length === 0 ?
                     <Countdown type={ 2 } /> : ''
             }
+            <div className="flex flex-row justify-between items-center">
+        <Rating value={4} />
+        <div className="text-accent-6 pr-1 font-medium text-sm">36 reviews</div>
+      </div>
        <Text
         className="pb-4 break-words w-full max-w-xl"
         html={product.descriptionHtml || product.description}
       />
-            <div className="ratings-container">
+            {/* <div className="ratings-container">
                 <div className="ratings-full">
                     <span className="ratings" style={ { width: 20 * product.ratings + '%' } }></span>
                     <span className="tooltiptext tooltip-top">{ ( product.ratings ) }</span>
                 </div>
 
                 <ALink href="#" className="rating-reviews">( { product.reviews } reviews )</ALink>
-            </div>
+            </div> */}
 
             <p className="product-short-desc">{ product.short_description }</p>
 
@@ -306,6 +310,7 @@ function DetailOne( props ) {
                                             alt="Product" />
                                     </ALink>
                                 </figure>
+                                
                                 <div>
                                     <h4 className="product-title"><ALink href={ '/product/default/' + product.slug }>{ product.name }</ALink></h4>
                                     <div className="product-info">
@@ -335,15 +340,8 @@ function DetailOne( props ) {
                                                         : <ins className="new-price">${ toDecimal( product.price[ 0 ] ) }</ins>
                                             }
                                         </div>
-
-                                        <div className="ratings-container mb-0">
-                                            <div className="ratings-full">
-                                                {/* <span className="ratings" style={ { width: 20 * product.ratings + '%' } }></span> */}
-                                                {/* <span className="tooltiptext tooltip-top">{ toDecimal( product.ratings ) }</span> */}
-                                            </div>
-
-                                            <ALink href="#" className="rating-reviews">( { product.reviews } reviews )</ALink>
-                                        </div>
+                                            
+                                    
                                     </div>
                                 </div>
                             </div>
@@ -365,6 +363,7 @@ function DetailOne( props ) {
                                  <button className={ `btn-product btn-cart text-normal ls-normal font-weight-semi-bold ${ cartActive ? '' : 'disabled' }` } onClick={ addToCartHandler }><i className='d-icon-bag'></i>Add to Cart</button>
                           )}
                         </div>
+                        
                          {/* <div>
         {process.env.COMMERCE_CART_ENABLED && (
           <Button
