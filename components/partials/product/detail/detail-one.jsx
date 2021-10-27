@@ -213,17 +213,6 @@ function DetailOne( props ) {
         className="pb-4 break-words w-full max-w-xl"
         html={product.descriptionHtml || product.description}
       />
-            {/* <div className="ratings-container">
-                <div className="ratings-full">
-                    <span className="ratings" style={ { width: 20 * product.ratings + '%' } }></span>
-                    <span className="tooltiptext tooltip-top">{ ( product.ratings ) }</span>
-                </div>
-
-                <ALink href="#" className="rating-reviews">( { product.reviews } reviews )</ALink>
-            </div> */}
-
-            <p className="product-short-desc">{ product.short_description }</p>
-
             {
                 product && product.variants.length > 0 ?
                     <>
