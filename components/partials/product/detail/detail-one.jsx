@@ -170,17 +170,8 @@ function DetailOne( props ) {
                         <ProductNav product={ product } />
                     </div> : ''
             }
-            
-            <ProductOptions
-        options={product.options}
-        selectedOptions={selectedOptions}
-        setSelectedOptions={setSelectedOptions}
-      />
-     
-     {console.log(product)}
-
-            <h2 className="product-name">{ product.name }</h2>
-
+             <h2 className="product-name">{ product.name }</h2>
+         
             <div className='product-meta'>
                 SKU: <span className='product-sku'>{ product.sku }</span>
          
@@ -200,6 +191,11 @@ function DetailOne( props ) {
                         ) }
                 </span>
             </div>
+            <ProductOptions
+        options={product.options}
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
          
             <div className="product-price mb-2">
             
