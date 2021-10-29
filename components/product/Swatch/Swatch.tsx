@@ -41,18 +41,34 @@ const Swatch: React.FC<Omit<ButtonProps, 'variant'> & SwatchProps> = React.memo(
         [s.active]: active,
         [s.size]: variant === 'size',
         [s.dark]: color ? isDark(color) : false,
-        [s.textLabel]: !color && label && label.length > 3,
+        [s.textLabel]: !color  && label && label.length > 3,
         [s.image]:image
       },
       className
     )
     return (
       <Button
+
+      //invisible label 
         aria-label="Variant Swatch"
+        // class name 
         className={swatchClassName} 
-        {...(label && color && image  && { title: label})}
+        // condition checking and if true assign label as title
+        //if all values(label,color,image) are true 
+        // {...(label && color && { title: label})}
+        // {...(label && image && { title: label})}
+        // {...(!color && !image && { title: null})}
+
+        // if there is label and color show label
+        // if there is label and image show label
+        // if there is no color or image show nothing
+
+        {...( (color  || image) && label && { title: label})}
+        // if there is color or image and there is label show label
+
+       //check condition if true set bgcolor as color
        style={color ? { backgroundColor: color } :{}}
-      
+       //properties 
         {...props}
       >
         {color && active && (
