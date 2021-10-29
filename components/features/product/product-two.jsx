@@ -98,7 +98,7 @@ function ProductTwo( props ) {
             </figure>
 
             <div className="product-details">
-                <div className="product-cat">
+                {/* <div className="product-cat">
                     {
                         product.categories ?
                             product.categories.map( ( item, index ) => (
@@ -110,7 +110,7 @@ function ProductTwo( props ) {
                                 </React.Fragment>
                             ) ) : ""
                     }
-                </div>
+                </div> */}
 
                 <h3 className="product-name">
                     <ALink href={ `/product/default/${ product.slug }` }>{ product.name }</ALink>

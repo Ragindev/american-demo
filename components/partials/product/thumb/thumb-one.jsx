@@ -41,7 +41,7 @@ export default function ThumbOne( props ) {
 
         setPos( 0 );
 
-        if ( term < product.pictures.length ) {
+        if ( term < product.Images.length ) {
             productThumbs.querySelector( '.thumb-down' ).classList.remove( 'disabled' );
         } else {
             productThumbs.querySelector( '.thumb-down' ).classList.add( 'disabled' );
@@ -71,13 +71,13 @@ export default function ThumbOne( props ) {
 
     useEffect( () => {
         let productThumbs = document.querySelector( '.product-thumbs-one' );
-        if ( pos + term < product.pictures.length ) {
+        if ( pos + term < product.Images.length ) {
             productThumbs.querySelector( '.thumb-down' ).classList.remove( 'disabled' );
         } else {
             productThumbs.querySelector( '.thumb-down' ).classList.add( 'disabled' );
         }
 
-        if ( pos + term === product.pictures.length ) {
+        if ( pos + term === product.Images.length ) {
             // moveThumb( "down" );
             // setPos( pos + 1 );
         }
@@ -97,7 +97,7 @@ export default function ThumbOne( props ) {
                 productThumbs.querySelector( '.thumb-up' ).classList.add( 'disabled' );
             }
 
-            if ( pos + term < product.pictures.length ) {
+            if ( pos + term < product.Images.length ) {
                 productThumbs.querySelector( '.thumb-down' ).classList.remove( 'disabled' );
             } else {
                 productThumbs.querySelector( '.thumb-down' ).classList.add( 'disabled' );
@@ -158,16 +158,16 @@ export default function ThumbOne( props ) {
             }
 
             let thumbContainer = document.querySelector( '.product-thumbs-one' );
-            if ( product.pictures.length <= newTerm ) {
+            if ( product.Images.length <= newTerm ) {
                 setTimeout( () => {
                     thumbContainer.querySelector( '.product-thumbs' ).style.top = 0;
                 }, 100 );
             } else {
                 let currentTop = parseInt( window.getComputedStyle( thumbContainer.querySelector( '.product-thumbs' ) ).getPropertyValue( 'top' ) );
-                let offset = currentTop + transformUnit * product.pictures.length - thumbSpace;
+                let offset = currentTop + transformUnit * product.Images.length - thumbSpace;
                 let temp = wrapperHeight - offset;
 
-                if ( ( index > newTerm - 1 || temp >= 0 ) && product.pictures.length > newTerm ) {
+                if ( ( index > newTerm - 1 || temp >= 0 ) && product.Images.length > newTerm ) {
                     thumbContainer.querySelector( '.product-thumbs' ).style.top = currentTop + temp + 'px';
                 }
             }

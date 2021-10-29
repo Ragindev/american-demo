@@ -25,12 +25,14 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
             {opt.values.map((v, i: number) => {
               const active = selectedOptions[opt.displayName.toLowerCase()]
               return (
+              
                 <Swatch
                   key={`${opt.id}-${i}`}
                   active={v.label.toLowerCase() === active}
                   variant={opt.displayName}
                   color={v.hexColors ? v.hexColors[0] : ''}
                   label={v.label}
+                  image={v.imageUrl}
                   onClick={() => {
                     setSelectedOptions((selectedOptions) => {
                       return {

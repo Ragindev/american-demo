@@ -19,6 +19,8 @@ export const swatchOptionFragment = /* GraphQL */ `
   fragment swatchOption on SwatchOptionValue {
     isDefault
     hexColors
+    imageUrl(width: 200)
+    entityId
   }
 `
 
@@ -42,6 +44,15 @@ export const productInfoFragment = /* GraphQL */ `
     entityId
     name
     path
+    sku
+    categories{
+      edges{
+        node{
+          id
+          name
+        }
+      }
+    }
     brand {
       entityId
     }

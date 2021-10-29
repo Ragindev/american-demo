@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 
 import ALink from '@components/features/custom-link';
-import Accordion from '@components/features/accordion/accordion';
-import Card from '@components/features/accordion/card';
 
-//import { modalActions } from '@store/modal';
+import { modalActions } from '@store/modal';
 
 import { toDecimal } from '@utils';
 
-function DescTwo( props ) {
-    const { product, adClass = '', openModal } = props;
+function DescOne( props ) {
+    const { product, isGuide = true, isDivider = true, openModal } = props;
+
     let colors = [], sizes = [];
 
     if ( product.variants.length > 0 ) {
@@ -46,182 +46,116 @@ function DescTwo( props ) {
     }
 
     return (
-        <div className={ `product-details pl-0 ${ adClass }` }>
-            <Accordion adClass="accordion-simple">
-                <Card title="Description" expanded={ true } adClass="card-description border-no">
-                    <div className="row mt-4">
-                        <div className="mb-4">
-                            <h5 className="description-title mb-4 font-weight-semi-bold ls-m">
-                                Features</h5>
+        <Tabs className="tab tab-nav-simple product-tabs pt-4" selectedTabClassName="show" selectedTabPanelClassName="active" defaultIndex={ 0 } >
+            <TabList className="nav nav-tabs justify-content-center" role="tablist">
+                <Tab className="nav-item">
+                    <span className="nav-link">Description</span>
+                </Tab>
+                <Tab className="nav-item">
+                    <span className="nav-link">Shipping &amp; Returns</span>
+                </Tab>
+                <Tab className="nav-item">
+                    <span className="nav-link">Reviews ({ product.reviews })</span>
+                </Tab>
+            </TabList>
+
+            <div className="tab-content">
+                <TabPanel className="tab-pane product-tab-description">
+                    <div className="row mt-6">
+                        <div className="col-md-6">
+                            <h5 className="description-title mb-4 font-weight-semi-bold ls-m">Features</h5>
                             <p className="mb-2">
-                                Praesent id enim sit amet.Tdio vulputate eleifend in in
-                                tortor.
-                                ellus massa. siti iMassa ristique sit amet condim vel,
-                                facilisis
-                                quimequistiqutiqu amet condim Dilisis Facilisis quis
-                                sapien.
-                                Praesent id
+                                Praesent id enim sit amet.Tdio vulputate eleifend in in tortor.
+                                ellus massa. siti iMassa ristique sit amet condim vel, facilisis
+                                quimequistiqutiqu amet condim Dilisis Facilisis quis sapien. Praesent id
                                 enim sit amet.
-															</p>
+										</p>
                             <ul className="mb-8">
                                 <li>Praesent id enim sit amet.Tdio vulputate</li>
-                                <li>Eleifend in in tortor. ellus massa.Dristique sitii
-																</li>
+                                <li>Eleifend in in tortor. ellus massa.Dristique sitii</li>
                                 <li>Massa ristique sit amet condim vel</li>
-                                <li>Dilisis Facilisis quis sapien. Praesent id enim sit
-                                amet
-																</li>
+                                <li>Dilisis Facilisis quis sapien. Praesent id enim sit amet</li>
                             </ul>
-                            <h5
-                                className="description-title mb-3 font-weight-semi-bold ls-m">
-                                Specifications
-															</h5>
+                            <h5 className="description-title mb-3 font-weight-semi-bold ls-m">Specifications
+										</h5>
                             <table className="table">
                                 <tbody>
                                     <tr>
-                                        <th
-                                            className="font-weight-semi-bold text-dark pl-0">
-                                            Material</th>
-                                        <td className="pl-4">Praesent id enim sit amet.Tdio
-																		</td>
+                                        <th className="font-weight-semi-bold text-dark pl-0">Material</th>
+                                        <td className="pl-4">Praesent id enim sit amet.Tdio</td>
                                     </tr>
                                     <tr>
-                                        <th
-                                            className="font-weight-semi-bold text-dark pl-0">
-                                            Claimed
-																			Size</th>
+                                        <th className="font-weight-semi-bold text-dark pl-0">Claimed Size</th>
                                         <td className="pl-4">Praesent id enim sit</td>
                                     </tr>
                                     <tr>
-                                        <th
-                                            className="font-weight-semi-bold text-dark pl-0">
-                                            Recommended Use
-																		</th>
-                                        <td className="pl-4">Praesent id enim sit amet.Tdio
-                                        vulputate eleifend
-																			in in tortor. ellus massa. siti</td>
+                                        <th className="font-weight-semi-bold text-dark pl-0">Recommended Use
+													</th>
+                                        <td className="pl-4">Praesent id enim sit amet.Tdio vulputate eleifend
+														in in tortor. ellus massa. siti</td>
                                     </tr>
                                     <tr>
-                                        <th
-                                            className="font-weight-semi-bold text-dark border-no pl-0">
+                                        <th className="font-weight-semi-bold text-dark border-no pl-0">
                                             Manufacturer</th>
                                         <td className="border-no pl-4">Praesent id enim</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div>
-                            <h5 className="description-title font-weight-semi-bold ls-m mb-5">Video Description
-															</h5>
-                            <figure className="p-relative d-inline-block mb-3">
+                        <div className="col-md-6 pl-md-6 pt-4 pt-md-0">
+                            <h5 className="description-title font-weight-semi-bold ls-m mb-5">Video Description</h5>
+                            <figure className="p-relative d-inline-block mb-2">
                                 <img src="./images/product.jpg" width="559" height="370" alt="Product" />
 
                                 <a className="btn-play btn-iframe" href="#" data="/uploads/video/video-1.mp4" onClick={ showVideoModalHandler }>
                                     <i className="d-icon-play-solid"></i>
                                 </a>
                             </figure>
-
                             <div className="icon-box-wrap d-flex flex-wrap">
-                                <div
-                                    className="icon-box icon-box-side icon-border pt-2 pb-2 mb-4 mr-sm-10 mr-8">
+                                <div className="icon-box icon-box-side icon-border pt-2 pb-2 mb-4 mr-10">
                                     <div className="icon-box-icon">
                                         <i className="d-icon-lock"></i>
                                     </div>
                                     <div className="icon-box-content">
-                                        <h4
-                                            className="icon-box-title lh-1 pt-1 ls-s text-normal">
-                                            2
-                                            year
-																			warranty</h4>
+                                        <h4 className="icon-box-title lh-1 pt-1 ls-s text-normal">2 year
+														warranty</h4>
                                         <p>Guarantee with no doubt</p>
                                     </div>
                                 </div>
-                                <div className="divider d-xl-show mr-10"></div>
-                                <div
-                                    className="icon-box icon-box-side icon-border pt-2 pb-2 mb-4">
+                                {
+                                    isDivider ?
+                                        <div className="divider d-xl-show mr-10"></div> : ''
+                                }
+                                <div className="icon-box icon-box-side icon-border pt-2 pb-2 mb-4">
                                     <div className="icon-box-icon">
                                         <i className="d-icon-truck"></i>
                                     </div>
                                     <div className="icon-box-content">
-                                        <h4
-                                            className="icon-box-title lh-1 pt-1 ls-s text-normal">
-                                            Free shipping
-																		</h4>
+                                        <h4 className="icon-box-title lh-1 pt-1 ls-s text-normal">Free shipping
+													</h4>
                                         <p>On orders over $50.00</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </Card>
+                </TabPanel>
 
-                <Card title="Additional information" adClass="card-additional">
-                    <ul>
-                        {
-                            product.categories.length > 0 ?
-                                <li><label>Categories:</label>
-                                    <p>
-                                        { product.categories.map( ( item, index ) => (
-                                            <React.Fragment key={ item.name + '-' + index }>
-                                                { item.name }
-                                                { index < product.categories.length - 1 ? ', ' : "" }
-                                            </React.Fragment>
-                                        ) ) }
-                                    </p>
-                                </li> : ""
-                        }
+                <TabPanel className="tab-pane product-tab-additional">
+                    <p>We deliver to over 100 countries around the world. For full details
+									ofthe delivery options we offer, please view our <ALink className="text-primary"
+                            href="#">Deliveryinformation</ALink>. We hope you’ll love everypurchase, but if you
+									ever need to return an item you can do so within a month ofreceipt. For full details
+									of how to make a return, please view our <ALink className="text-primary" href="#">Returns
+										information</ALink></p>
+                </TabPanel>
 
-                        {
-                            product.brands.length > 0 ?
-                                <li><label>Brands:</label>
-                                    <p>
-                                        { product.brands.map( ( item, index ) => (
-                                            <React.Fragment key={ item.name + '-' + index }>
-                                                { item.name }
-                                                { index < product.brands.length - 1 ? ', ' : "" }
-                                            </React.Fragment>
-                                        ) ) }
-                                    </p>
-                                </li> : ""
-                        }
-
-                        {
-                            colors.length > 0 ?
-                                <li><label>Color:</label>
-                                    <p>
-                                        { colors.map( ( item, index ) => (
-                                            <React.Fragment key={ item.name + '-' + index }>
-                                                { item.name }
-                                                { index < colors.length - 1 ? ', ' : "" }
-                                            </React.Fragment>
-                                        ) ) }
-                                    </p>
-                                </li> : ""
-                        }
-
-                        {
-                            sizes.length > 0 ?
-                                <li><label>Size:</label>
-                                    <p>
-                                        {
-                                            sizes.map( ( item, index ) => (
-                                                <React.Fragment key={ item.name + '-' + index }>
-                                                    { item.name }
-                                                    { index < sizes.length - 1 ? ', ' : "" }
-                                                </React.Fragment>
-                                            ) ) }
-                                    </p>
-                                </li> : ""
-                        }
-                    </ul>
-                </Card>
-
-                <Card title={ `Reviews (${ product.reviews })` } adClass="card-reviews">
+                <TabPanel className="tab-pane product-tab-reviews">
                     {
                         product.reviews === 0 ?
                             <div className="comments mb-2 pt-2 pb-2 border-no">
                                 There are no reviews yet.
-                                    </div> :
+                            </div> :
                             <div className="comments mb-8 pt-2 pb-2 border-no">
                                 <ul>
                                     <li>
@@ -353,10 +287,11 @@ function DescTwo( props ) {
                                 className="d-icon-arrow-right"></i></button>
                         </form>
                     </div>
-                </Card>
-            </Accordion>
-        </div >
+
+                </TabPanel>
+            </div>
+        </Tabs >
     )
 }
 
-export default  DescTwo 
+export default connect( '', { openModal: modalActions.openModal } )( DescOne )

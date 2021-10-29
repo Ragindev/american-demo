@@ -9,14 +9,14 @@ import Countdown from '@components/features/countdown';
 import Quantity from '@components/features/quantity';
 
 import ProductNav from '@components/partials/product/product-nav';
-import DescTwo from '@components/partials/product/desc/desc-two';
+import DescTwo from '@components/partials/product/desc/desc-one';
 
 //import { wishlistActions } from '@store/wishlist';
 //import { cartActions } from '@store/cart';
 
 import { toDecimal } from '@utils';
 
-function DetailOne( props ) {
+function DetailThree( props ) {
     let router = useRouter();
     const { data, isSticky = false, isDesc = false, adClass = '', isNav = true } = props;
     const { toggleWishlist, addToCart, wishlist } = props;
@@ -316,5 +316,5 @@ function mapStateToProps( state ) {
     }
 }
 
-export default  DetailOne;
+export default DetailThree;
 

@@ -5,8 +5,9 @@ import { Button, Text, Rating, Collapse, useUI } from '@components/ui'
 import ALink from '@components/features/custom-link';
 import Countdown from '@components/features/countdown';
 import Quantity from '@components/features/quantity';
-
 import ProductNav from '@components/partials/product/product-nav';
+import { ProductOptions } from '@components/product'
+import { useAddItem } from '@framework/cart'
 
 // import { wishlistActions } from '@store/wishlist';
 // import { cartActions } from '@store/cart';
@@ -22,7 +23,10 @@ function DetailOne( props ) {
     const [ curIndex, setCurIndex ] = useState( -1 );
     const [ cartActive, setCartActive ] = useState( false );
     const [ quantity, setQauntity ] = useState( 1 );
-    
+    const [selectedOptions, setSelectedOptions] = useState({})
+    const [loading, setLoading] = useState(false)
+    const addItem = useAddItem()
+    const { openSidebar } = useUI()
 
     // decide if the product is wishlisted
     // let isWishlisted, colors = [], sizes = [];
@@ -142,7 +146,7 @@ function DetailOne( props ) {
         try {
           await addItem({
             productId: String(product.id),
-            variantId: String(variant ? variant.id : product.variants[0].id),
+            //variantId: String(variant ? variant.id : product.variants[0].id),
           })
           openSidebar()
           setLoading(false)
@@ -150,7 +154,9 @@ function DetailOne( props ) {
           setLoading(false)
         }
       }
+
     return (
+        
         <div className={ "product-details " + adClass }>
             {
                 isNav ?
@@ -164,27 +170,37 @@ function DetailOne( props ) {
                         <ProductNav product={ product } />
                     </div> : ''
             }
+            
+            <ProductOptions
+        options={product.options}
+        selectedOptions={selectedOptions}
+        setSelectedOptions={setSelectedOptions}
+      />
+     
+     {console.log(product)}
 
             <h2 className="product-name">{ product.name }</h2>
 
             <div className='product-meta'>
                 SKU: <span className='product-sku'>{ product.sku }</span>
          
-               
-                {/* CATEGORIES: <span className='product-brand'>
+            
+                CATEGORIES: <span className='product-brand'>
                     {
                        
-                        product.categories.map( ( item, index ) =>
-                            <React.Fragment key={ item.name + '-' + index }>
+                        product.categories.edges.map( ( item, index ) =>
+                        
+                            <React.Fragment key={ item.node.name + '-' + index }>
                                 <ALink href={ { pathname: '/shop', query: { category: item.slug } } }>
-                                    { item.name }
+                                    { item.node.name }
                                 </ALink>
+                            
                                 { index < product.categories.length - 1 ? ', ' : '' }
                             </React.Fragment>
                         ) }
-                </span> */}
+                </span>
             </div>
-
+         
             <div className="product-price mb-2">
             
                     {
@@ -213,6 +229,7 @@ function DetailOne( props ) {
         className="pb-4 break-words w-full max-w-xl"
         html={product.descriptionHtml || product.description}
       />
+      
             {
                 product && product.variants.length > 0 ?
                     <>
@@ -338,7 +355,7 @@ function DetailOne( props ) {
                                 <label className="d-none">QTY:</label>
                                 <div className="product-form-group">
                                     <Quantity max={ product.stock } product={ product } onChangeQty={ changeQty } />
-                                    <button className={ `btn-product btn-cart text-normal ls-normal font-weight-semi-bold ${ cartActive ? '' : 'disabled' }` } onClick={ addToCartHandler }><i className='d-icon-bag'></i>Add to Cart</button>
+                                <button className={`btn-product btn-cart text-normal ls-normal font-weight-semi-bold`} onClick={addToCart}><i className='d-icon-bag'></i>Add to Cart</button>
                                 </div>
                             </div>
                         </div>
@@ -348,29 +365,12 @@ function DetailOne( props ) {
                         <label className="d-none">QTY:</label>
                         <div className="product-form-group">
                             <Quantity max={ product.stock } product={ product } onChangeQty={ changeQty } />
-                             {process.env.COMMERCE_CART_ENABLED && (
-                                 <button className={ `btn-product btn-cart text-normal ls-normal font-weight-semi-bold ${ cartActive ? '' : 'disabled' }` } onClick={ addToCartHandler }><i className='d-icon-bag'></i>Add to Cart</button>
-                          )}
+                        <button className={`btn-product btn-cart text-normal ls-normal font-weight-semi-bold`} onClick={addToCart}><i className='d-icon-bag'></i>Add to Cart</button>
+                          
                         </div>
-                        
-                         {/* <div>
-        {process.env.COMMERCE_CART_ENABLED && (
-          <Button
-            aria-label="Add to Cart"
-            type="button"
-            className={s.button}
-            onClick={addToCart}
-            loading={loading}
-            disabled={variant?.availableForSale === false}
-          >
-            {variant?.availableForSale === false
-              ? 'Not Available'
-              : 'Add To Cart'}
-          </Button>
-        )}
-      </div> */}
                     </div>
             }
+            
         <div className="mt-6">
         <Collapse title="Care">
           This is a limited edition production run. Printing starts when the
@@ -400,7 +400,8 @@ function DetailOne( props ) {
         </div>
     )
 }
-<ProductSidebar></ProductSidebar>
+<ProductSidebar/>
+
 function mapStateToProps( state ) {
     return {
     //  wishlist: state.wishlist ? state.wishlist : []

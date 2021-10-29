@@ -9,9 +9,11 @@ import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductView } from '@components/product'
 import DetailOne from '@components/partials/product/detail/detail-one';
+import DetailThree from '@components/partials/product/detail/detail-three';
 import React, { useEffect, useState } from 'react';
 import MediaTwo from '@components/partials/product/media/media-two';
-
+//import MediaOne from '@components/partials/product/media/media-one';
+// import DescOne from '@components/partials/product/desc/desc-one';
 
 
 
@@ -87,10 +89,13 @@ export default function Slug({
       
     <div className="col-md-6">
      <MediaTwo product={ product } />
+     {/* <MediaOne product={ product } /> */}
     </div>
     <div className="col-md-6">
     <DetailOne product={ product } />
+    {/* <DetailThree product={ product } /> */}
     </div>
+    {/* <DescOne product={ product } /> */}
     </div>
     <ProductView product={product} relatedProducts={relatedProducts} />
     </div>
