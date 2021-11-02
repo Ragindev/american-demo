@@ -29,8 +29,8 @@ return (
                           threshold={ 500 }
                           src="https://d-themes.com/react/riode/demo-2/images/home/slides/1.jpg"
                           alt="intro-banner"
-                          width="1180"
-                          height="550"
+                          width="1680"
+                          height="750"
                           style={ { backgroundColor: "#444342" } }
                           effect="opacity"
                       />
@@ -59,8 +59,8 @@ return (
                       <Image
                           threshold={ 500 }
                           src="https://d-themes.com/react/riode/demo-2/images/home/slides/2.jpg"
-                          alt="banner" width="1180"
-                          height="550"
+                          alt="banner" width="1680"
+                          height="750"
                           style={ { backgroundColor: "#686868" } }
                           effect="opacity" />
                   </figure>

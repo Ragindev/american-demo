@@ -7,16 +7,28 @@ function OwlCarousel ( props ) {
     const carouselRef = useRef( null );
     const defaultOptions = {
         items: 1,
-        loop: false,
+        loop: true,
         margin: 0,
         responsiveClass: "true",
         nav: true,
         navText: [ '<i class="d-icon-angle-left">', '<i class="d-icon-angle-right">' ],
         navElement: "button",
         dots: true,
-        smartSpeed: 400,
-        autoplay: false,
-        autoHeight: false
+        smartSpeed: 200,
+        autoplay: true,
+        autoHeight:true,
+        autoWidth:true,
+        stagePadding: 15,
+        responsive: {
+            0: {
+              items: 1
+            },
+            640: {
+              items: 2
+            }
+           
+          }
+        
         // autoplayTimeout: 5000,
     };
 
@@ -34,15 +46,17 @@ function OwlCarousel ( props ) {
             }
         }
     }
-
+console.log(item)
     events = Object.assign( {}, events, props.events );
     let settings = Object.assign( {}, defaultOptions, options );
 
     return (
         props.children ?
             props.children.length > 0 || ( props.children && props.children.length === undefined ) ?
+                    
                 <Carousel ref={ carouselRef } className={ `owl-carousel ${ adClass }` } options={ settings } events={ events }>
                     { props.children }
+                    
                 </Carousel >
                 : ""
             : ""

@@ -22,8 +22,9 @@ function DetailOne( props ) {
     const [ curSize, setCurSize ] = useState( 'null' );
     const [ curIndex, setCurIndex ] = useState( -1 );
     const [ cartActive, setCartActive ] = useState( false );
+    const { onChangeVariant, toggleWishlist, wishlist } = props;
     const [ quantity, setQauntity ] = useState( 1 );
-    const [selectedOptions, setSelectedOptions] = useState({})
+    // const [selectedOptions, setSelectedOptions] = useState({})
     const [loading, setLoading] = useState(false)
     const addItem = useAddItem()
     const { openSidebar } = useUI()
@@ -32,6 +33,15 @@ function DetailOne( props ) {
     // let isWishlisted, colors = [], sizes = [];
     //  isWishlisted = wishlist.findIndex( item => item.slug === product.slug ) > -1 ? true : false;
 
+    var sOpt = {};
+    product.options.forEach((opt) => {
+        opt.values.forEach((v) => {
+            if (v.isDefault) {
+                sOpt[opt.displayName.toLowerCase()] = v.label.toLowerCase();
+            }
+        })
+    })
+    const [selectedOptions, setSelectedOptions] = useState(sOpt)
     if ( product && product.variants.length > 0 ) {
         if ( product.variants[ 0 ].size )
             product.variants.forEach( item => {
@@ -194,7 +204,22 @@ function DetailOne( props ) {
             <ProductOptions
         options={product.options}
         selectedOptions={selectedOptions}
-        setSelectedOptions={setSelectedOptions}
+        setSelectedOptions={(p) => {
+            var vari = product.variants.find((d) => {
+                var what = d.options.filter(opt => selectedOptions[opt.displayName.toLowerCase()] === opt.values[0].label.toLowerCase())
+                return what.length === Object.keys(selectedOptions).length
+            })
+
+            if (vari) {
+                product.images[0] = {
+                    alt: vari.defaultImage.altText,
+                    isDefault: false,
+                    url: vari.defaultImage.urlOriginal
+                }
+                onChangeVariant({...product})
+            }
+            setSelectedOptions(p)
+        }}
       />
          
             <div className="product-price mb-2">

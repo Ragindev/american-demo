@@ -1,17 +1,15 @@
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 import { ProductCard } from '@components/product'
-import IntroSection from '@components/partials/home/intro-section';
+import IntroSection from '@components/partials/home/intro-section'
 import { Grid, Marquee, Hero } from '@components/ui'
-// import HomeAllProductsGrid from '@components/common/HomeAllProductsGrid'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-
-//import { parseContent } from '@utils';
-import CategorySection from '@components/partials/home/category-section';
-import BestCollection from '@components/partials/home/best-collection';
-//import SaleCollection from '@components/partials/home/sale-collection';
-import PromoSection from '@components/partials/home/promo-section';
-//import ServiceBox from '@components/partials/home/service-section';
+import CategorySection from '@components/partials/home/category-section'
+import BestCollection from '@components/partials/home/best-collection'
+import PromoSection from '@components/partials/home/promo-section'
+import IntroSectionTwo from '@components/partials/home/intro-section-two'
+import SliceZone from '@components/prismic/SliceZone'
+import { Client } from '@utils/prismicHelpers'
 
 export async function getStaticProps({
   preview,
@@ -31,6 +29,11 @@ export async function getStaticProps({
   const { products } = await productsPromise
   const { pages } = await pagesPromise
   const { categories, brands } = await siteInfoPromise
+  const client = Client()
+
+  // const doc = await client.getSingle('american_tourister', {}) || {}
+  // get homepage of american tourister by ID
+  const homePage = (await client.getByID('YW6FtBIAAJvfAdDu', {})) || {}
 
   return {
     props: {
@@ -38,6 +41,7 @@ export async function getStaticProps({
       categories,
       brands,
       pages,
+      homePage,
     },
     revalidate: 60,
   }
@@ -45,18 +49,20 @@ export async function getStaticProps({
 
 export default function Home({
   products,
+  homePage,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-
   return (
     <>
-  
-      <IntroSection/>
-      <BestCollection products={ products } loading={ false } />
+      <IntroSection />
+
+      <IntroSectionTwo banners={homePage.data.homepage_banner} />
+
+      <SliceZone sliceZone={homePage.data.body} />
+
+      <BestCollection products={products} loading={false} />
       <CategorySection />
       <PromoSection />
-    
 
-      
       {/* <Grid variant="filled">
         {products.slice(0, 3).map((product: any, i: number) => (
           <ProductCard

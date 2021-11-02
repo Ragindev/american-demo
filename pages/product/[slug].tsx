@@ -12,6 +12,7 @@ import DetailOne from '@components/partials/product/detail/detail-one';
 import DetailThree from '@components/partials/product/detail/detail-three';
 import React, { useEffect, useState } from 'react';
 import MediaTwo from '@components/partials/product/media/media-two';
+import ProductOne from '@components/partials/product/product-one';
 //import MediaOne from '@components/partials/product/media/media-one';
 // import DescOne from '@components/partials/product/desc/desc-one';
 
@@ -97,6 +98,7 @@ export default function Slug({
     </div>
     {/* <DescOne product={ product } /> */}
     </div>
+     <ProductOne product={product} />
     <ProductView product={product} relatedProducts={relatedProducts} />
     </div>
   )
