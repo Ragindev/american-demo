@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect,useState } from 'react';
 import Carousel from 'react-owl-carousel2';
 
 // let prevPath;
 function OwlCarousel ( props ) {
     const { adClass, options } = props;
     const carouselRef = useRef( null );
+    const [width, setWidth] = useState(0);
     const defaultOptions = {
         items: 1,
         loop: true,
@@ -15,22 +16,16 @@ function OwlCarousel ( props ) {
         navElement: "button",
         dots: true,
         smartSpeed: 200,
-        autoplay: true,
-        autoHeight:true,
-        autoWidth:true,
-        stagePadding: 15,
-        responsive: {
-            0: {
-              items: 1
-            },
-            640: {
-              items: 2
-            }
-           
-          }
+        autoplay: true, 
+        responsiveRefreshRate:100,
         
+     
+
         // autoplayTimeout: 5000,
     };
+    useEffect(() => {
+        setWidth(window.innerWidth);
+      });
 
     useEffect( () => {
         if ( props.onChangeRef ) {
@@ -46,17 +41,17 @@ function OwlCarousel ( props ) {
             }
         }
     }
-console.log(item)
     events = Object.assign( {}, events, props.events );
     let settings = Object.assign( {}, defaultOptions, options );
+  
 
     return (
         props.children ?
             props.children.length > 0 || ( props.children && props.children.length === undefined ) ?
                     
                 <Carousel ref={ carouselRef } className={ `owl-carousel ${ adClass }` } options={ settings } events={ events }>
-                    { props.children }
-                    
+                    { props.children } 
+                   
                 </Carousel >
                 : ""
             : ""
